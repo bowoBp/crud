@@ -16,6 +16,12 @@ jobs:
         run: |
           echo "Building the application..."
 
+      - name: Archive Artifact
+        uses: action/upload-artifacts@v2
+        with:
+          name: crud
+          path: crud
+
   test:
     runs-on: ubuntu-latest
     needs: build
