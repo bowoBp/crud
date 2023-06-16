@@ -25,7 +25,7 @@ func NewUserRequestHandler(
 }
 
 func (h RequestHandlerUser) CreateUser(c *gin.Context) {
-	role, _ := c.Get("role")
+
 	request := UserParam{}
 	err := c.Bind(&request)
 	if err != nil {
