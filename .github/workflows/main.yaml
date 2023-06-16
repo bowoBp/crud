@@ -17,7 +17,7 @@ jobs:
           echo "Building the application..."
 
       - name: Archive Artifact
-        uses: action/upload-artifacts@v2
+        uses: actions/upload-artifact@v2
         with:
           name: crud
           path: crud
