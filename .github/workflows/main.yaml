@@ -20,7 +20,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: crud
-          path: crud
+          path: ./crud/artifact
 
   test:
     runs-on: ubuntu-latest
