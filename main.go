@@ -51,9 +51,6 @@ func main() {
 	// Server Swagger UI
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-	//Server mock API
-	router.GET("/mock/*any", mockSwagger.W)
-
 	errRouter := router.Run(os.Getenv("PORT"))
 	if errRouter != nil {
 		fmt.Println("error running server", errRouter)
