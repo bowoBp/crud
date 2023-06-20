@@ -6,13 +6,14 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
+	"os"
 )
 
 func main() {
 	router := gin.New()
 
 	// open connection db
-	dbCrud := db.GormMysql()
+	dbCrud := db.GormMysql(os.Getenv("CRUD_DSN"))
 
 	////check connection
 	//checkdb, err := dbCrud.DB()
@@ -34,7 +35,7 @@ func main() {
 	userHandler := user.NewRouter(dbCrud)
 	userHandler.Handle(versionRoute)
 
-	errRouter := router.Run(":8081")
+	errRouter := router.Run(os.Getenv("PORT"))
 	if errRouter != nil {
 		fmt.Println("error running server", errRouter)
 		return

@@ -6,9 +6,8 @@ import (
 	"log"
 )
 
-func GormMysql() *gorm.DB {
-	// db, err := gorm.Open(mysql.Open("root:Tkjcenter313@tcp(host.docker.internal:3306)/bricorp?charset=utf8mb4&parseTime=True&loc=UTC"), &gorm.Config{})
-	db, err := gorm.Open(mysql.Open("root:Tkjcenter313@tcp(172.0.0.1:3306)/bricorp?charset=utf8mb4&parseTime=True&loc=UTC"), &gorm.Config{})
+func GormMysql(dsn string) *gorm.DB {
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Println("gorm.open", err)
 	}
