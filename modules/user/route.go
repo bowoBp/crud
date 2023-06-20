@@ -1,6 +1,7 @@
 package user
 
 import (
+	"crud/midleware"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -24,7 +25,9 @@ func (r RouterUser) Handle(routeVersion *gin.RouterGroup) {
 	user.POST("/",
 		r.UserRequestHandler.CreateUser,
 	)
+
 	user.GET("/:id",
+		midleware.AuthMiddleware(),
 		r.UserRequestHandler.GetUserById,
 	)
 	user.PUT("/:id",

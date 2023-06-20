@@ -24,6 +24,15 @@ func NewUserRequestHandler(
 		}}
 }
 
+// CreateUser ... Create User
+// @Summary Create User based on parameter
+// @Description Create new user
+// @Tags Users
+// @Accept json
+// @Param user body user.UserParam true "User Data"
+// @Success 200 {object} user.UserParam
+// @Failure 400,404,500 {object} dto.ErrorResponse
+// @Router /user/ [post]
 func (h RequestHandlerUser) CreateUser(c *gin.Context) {
 
 	request := UserParam{}
@@ -40,10 +49,19 @@ func (h RequestHandlerUser) CreateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+// GetUserById ... user by id
+// @Summary Get one user
+// @Description get user by ID
+// @Tags Users
+// @Param id path int true "User ID"
+// @Security ApiKeyAuth
+// @Success 200 {object} user.FindUser
+// @Failure 400,404,500 {object} dto.ErrorResponse
+// @Router /user/{id} [get]
 func (h RequestHandlerUser) GetUserById(c *gin.Context) {
-	request := UserParam{}
-	err := c.BindQuery(&request)
-	if err != nil {
+
+	id := c.Param("id")
+	if id == "" {
 		c.JSON(http.StatusBadRequest, dto.DefaultBadRequestResponse())
 		return
 	}
@@ -61,6 +79,14 @@ func (h RequestHandlerUser) GetUserById(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+// DeleteUser ... delete User by email
+// @Summary Delete User
+// @Description Delete User by email
+// @Tags Users
+// @Param email path string true "User Email"
+// @Success 200 {object} dto.ResponseMeta
+// @Failure 400,404,500 {object} dto.ErrorResponse
+// @Router /user/{email} [delete]
 func (h RequestHandlerUser) DeleteUser(c *gin.Context) {
 	email := c.Param("email")
 	res, err := h.ctr.DeleteUser(email)
@@ -71,6 +97,16 @@ func (h RequestHandlerUser) DeleteUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+// UpdateUser ... update user
+// @Summary Create User based on parameter
+// @Description Create new user
+// @Tags Users
+// @Accept json
+// @Param id path int true "User ID"
+// @Param user body user.UserParam true "User Data"
+// @Success 200 {object} user.UserParam
+// @Failure 400,404,500 {object} dto.ErrorResponse
+// @Router /user/{id} [put]
 func (h RequestHandlerUser) UpdateUser(c *gin.Context) {
 	request := UserParam{}
 	err := c.BindJSON(&request)

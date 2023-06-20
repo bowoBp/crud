@@ -1,6 +1,9 @@
 package entity
 
-import "time"
+import (
+	"database/sql"
+	"time"
+)
 
 type User struct {
 	ID        uint   `gorm:"primary_key"`
@@ -9,4 +12,5 @@ type User struct {
 	Password  string `gorm:"column:password"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
+	UID       sql.NullString `json:"user_id" swaggertype:"string"`
 }
